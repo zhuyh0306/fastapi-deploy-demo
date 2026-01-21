@@ -1,0 +1,21 @@
+# FastAPI核心依赖
+fastapi>=0.100.0
+uvicorn[standard]>=0.20.0
+
+# 数据库相关
+sqlalchemy>=2.0.0
+python-dotenv>=1.0.0
+
+# Pydantic模型
+pydantic>=2.0.0
+
+# 生产环境建议添加的依赖
+gunicorn>=21.0.0  # 生产环境WSGI服务器
+bcrypt>=4.0.0  # 密码加密
+
+# 监控相关（可选）
+prometheus-fastapi-instrumentator>=6.0.0  # Prometheus监控
+
+# 开发环境依赖（可选）
+ipython>=8.0.0  # 交互式Python
+bpython>=0.24.0  # 增强型Python解释器

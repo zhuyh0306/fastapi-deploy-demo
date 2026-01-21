@@ -1,0 +1,56 @@
+version: '3.8'
+
+services:
+  # FastAPI应用服务
+  fastapi-app:
+    build: .
+    container_name: fastapi-deployment
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      - APP_NAME=FastAPI Docker Compose Demo
+      - DEBUG=False
+      - HOST=0.0.0.0
+      - PORT=8000
+      - DATABASE_URL=sqlite:///./app.db
+    volumes:
+      - app-data:/app  # 持久化存储数据库文件
+    networks:
+      - app-network
+    # 使用Gunicorn作为生产服务器
+    command: gunicorn -c gunicorn.conf.py main:app
+
+  # 可选：如果使用PostgreSQL数据库，可以添加以下服务
+  # db:
+  #   image: postgres:15-alpine
+  #   container_name: fastapi-db
+  #   restart: unless-stopped
+  #   environment:
+  #     - POSTGRES_DB=fastapi_db
+  #     - POSTGRES_USER=fastapi_user
+  #     - POSTGRES_PASSWORD=fastapi_password
+  #   volumes:
+  #     - db-data:/var/lib/postgresql/data
+  #   networks:
+  #     - app-network
+  #   ports:
+  #     - "5432:5432"
+
+  # 可选：如果使用Redis缓存，可以添加以下服务
+  # redis:
+  #   image: redis:7-alpine
+  #   container_name: fastapi-redis
+  #   restart: unless-stopped
+  #   networks:
+  #     - app-network
+  #   ports:
+  #     - "6379:6379"
+
+volumes:
+  app-data:  # 用于存储SQLite数据库文件
+  # db-data:  # 用于存储PostgreSQL数据库数据
+
+networks:
+  app-network:
+    driver: bridge

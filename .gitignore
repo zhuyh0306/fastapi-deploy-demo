@@ -1,0 +1,39 @@
+# 部署目录特定忽略规则
+
+# 虚拟环境
+venv/
+.venv/
+
+# 编译产物
+__pycache__/
+*.pyc
+
+# 日志文件
+uvicorn.log
+*.log
+
+# 数据库文件
+app.db
+*.sqlite3
+*.db
+
+# 环境变量
+.env
+.env.local
+.env.*.local
+
+# 部署生成文件
+*.pid
+
+# IDE 配置
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Docker 相关（如果需要）
+.dockerignore
+
+# 其他
+.DS_Store
